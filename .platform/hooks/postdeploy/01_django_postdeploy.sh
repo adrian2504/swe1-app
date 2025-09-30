@@ -1,7 +1,6 @@
 #!/bin/bash
-set -e
-cd /var/app/current
-source /var/app/venv/*/bin/activate
-python manage.py migrate --noinput
-python manage.py collectstatic --noinput
+# Run migrations
+/var/app/venv/*/bin/python manage.py migrate --noinput
 
+# Collect static files
+/var/app/venv/*/bin/python manage.py collectstatic --noinput
