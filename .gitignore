@@ -4,3 +4,8 @@
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 .venv/
+venv/
+*.pyc
+__pycache__/
+staticfiles/
+db.sqlite3
