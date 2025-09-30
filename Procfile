@@ -1,1 +1,1 @@
-web: gunicorn mysite.wsgi --bind 0.0.0.0:$PORT --timeout 120
+web: gunicorn mysite.wsgi --bind 0.0.0.0:$PORT
