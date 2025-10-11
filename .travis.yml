@@ -2,14 +2,31 @@ language: python
 python:
   - "3.11"
 
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE=mysite.settings
+    - AWS_DEFAULT_REGION=us-east-1
+
 install:
   - pip install -r requirements.txt
   - pip install black flake8 coverage coveralls
 
 script:
+  # Format + lint + test
   - black --check .
   - flake8 --max-line-length=88 .
   - coverage run manage.py test
 
 after_success:
   - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "adrian-djangoapp"
+  env: "adrian-django-env"
+  bucket_name: "elasticbeanstalk-us-east-1-503561431144"
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  on:
+    branch: main
