@@ -1,39 +1,28 @@
 language: python
 python:
-  - "3.12"
+  - "3.11"
 
-env:
-  global:
-    - DJANGO_SETTINGS_MODULE=mysite.settings
-    - AWS_DEFAULT_REGION=us-east-1
-    - PORT=8000
-
+# Ensure virtualenv is isolated and dependencies are installed
 install:
   - pip install -r requirements.txt
-  - pip install black flake8 coverage coveralls awsebcli python-dotenv
+  - pip install black flake8 coverage coveralls gunicorn
 
-before_script:
-  # Run Black formatter check
-  - black --check .
-  # Run Flake8 linter
-  - flake8 --max-line-length=88
-  # Run Django checks (migrations, etc.)
-  - python manage.py check
-
+# Run checks before deployment
 script:
-  # Run Django tests with coverage
+  - black --check .
+  - flake8 --max-line-length=88 .
   - coverage run manage.py test
-  - coverage report
 
 after_success:
   - coveralls
 
+# Automatically deploy to Elastic Beanstalk after successful checks
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
-  app: "adrian-djangoapp"                # 🔁 your EB application name
-  env: "adrian-django-env"               # 🔁 your EB environment name
-  bucket_name: "elasticbeanstalk-us-east-1-503561431144"  # 🔁 your EB S3 bucket
+  app: "adrian-djangoapp"
+  env: "adrian-django-env"
+  bucket_name: "elasticbeanstalk-us-east-1-503561431144"
   on:
     branch: main
   access_key_id: $AWS_ACCESS_KEY_ID
