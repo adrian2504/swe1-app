@@ -2,12 +2,10 @@ language: python
 python:
   - "3.11"
 
-# Ensure virtualenv is isolated and dependencies are installed
 install:
   - pip install -r requirements.txt
-  - pip install black flake8 coverage coveralls gunicorn
+  - pip install black flake8 coverage coveralls
 
-# Run checks before deployment
 script:
   - black --check .
   - flake8 --max-line-length=88 .
@@ -15,15 +13,3 @@ script:
 
 after_success:
   - coveralls
-
-# Automatically deploy to Elastic Beanstalk after successful checks
-deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "adrian-djangoapp"
-  env: "adrian-django-env"
-  bucket_name: "elasticbeanstalk-us-east-1-503561431144"
-  on:
-    branch: main
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
