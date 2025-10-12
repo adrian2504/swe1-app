@@ -12,7 +12,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "insecure-dev-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = os.getenv(
     "DJANGO_ALLOWED_HOSTS",
-    "127.0.0.1,localhost,0.0.0.0,.elasticbeanstalk.com,adrian-django-env.eba-rbm7rnwf.us-east-1.elasticbeanstalk.com",
+    "127.0.0.1,localhost,0.0.0.0,.elasticbeanstalk.com,"
+    "adrian-django-env.eba-rbm7rnwf.us-east-1.elasticbeanstalk.com",
 ).split(",")
 
 
@@ -68,7 +69,8 @@ DATABASES = {
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        "NAME": "django.contrib.auth.password_validation."
+        "UserAttributeSimilarityValidator"
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
@@ -83,7 +85,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # where collectstatic puts files
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

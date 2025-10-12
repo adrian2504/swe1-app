@@ -6,13 +6,14 @@ from django.urls import reverse
 
 from .models import Question
 
+
 class SmokeTest(TestCase):
     def test_homepage_loads(self):
         """Simple test to ensure the homepage returns 200."""
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
 
-        
+
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
         """

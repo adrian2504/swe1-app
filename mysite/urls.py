@@ -22,7 +22,9 @@ from django.http import HttpResponse
 
 def home(request):
     return HttpResponse(
-        "<h1>Welcome to my Django App on AWS!</h1><p>Go to <a href='/polls/'>Polls</a> or <a href='/admin/'>Admin</a>.</p>"
+        "<h1>Welcome to my Django App on AWS!"
+        "</h1><p>Go to <a href='/polls/'>Polls</a> "
+        "or <a href='/admin/'>Admin</a>.</p>"
     )
 
 
