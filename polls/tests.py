@@ -10,7 +10,7 @@ from .models import Question
 class SmokeTest(TestCase):
     def test_homepage_loads(self):
         """Simple test to ensure the homepage returns 200."""
-        response = self.client.get(reverse("index"))
+        response = self.client.get(reverse("polls:IndexView"))
         self.assertEqual(response.status_code, 200)
 
 
@@ -34,11 +34,11 @@ class QuestionModelTests(TestCase):
         self.assertIs(old_question.was_published_recently(), False)
 
 
-def test_was_published_recently_with_recent_question(self):
-    """
-    was_published_recently() returns True for questions whose pub_date
-    is within the last day.
-    """
-    time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
-    recent_question = Question(pub_date=time)
-    self.assertIs(recent_question.was_published_recently(), True)
+    def test_was_published_recently_with_recent_question(self):
+        """
+        was_published_recently() returns True for questions whose pub_date
+        is within the last day.
+        """
+        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        recent_question = Question(pub_date=time)
+        self.assertIs(recent_question.was_published_recently(), True)
