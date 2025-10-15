@@ -18,7 +18,13 @@ script:
   - coverage run manage.py test
 
 after_success:
-  - coveralls
+  - echo "TRAVIS_EVENT_TYPE=$TRAVIS_EVENT_TYPE"
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
+  - echo "TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG"
+  - echo "TRAVIS_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER"
+  - COVERALLS_NOISY=true coveralls --service=travis-pro -v
+  - coveralls --finish || true
+
 
 deploy:
   provider: elasticbeanstalk
@@ -30,3 +36,5 @@ deploy:
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   on:
     branch: main
+
+
